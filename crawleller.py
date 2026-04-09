@@ -112,14 +112,13 @@ if target:
 
 	thed = "".join(thinh)
 
-if args.cre == None:
+if not args.cre:
 	headers = {
 	"User-Agent": "Mozilla/5.0",
 	"Accept": "text/html",
 	"Accept-Language": "en-US,en;q=0.9",
 	}
 	session = None
-	needtounzip = False
 else:
 	username = input("Please provide your username: ")
 	password = input("Please provide your password: ")
@@ -132,7 +131,6 @@ else:
 	}
 	res = session.post(loginurl, data=login_data)
 	print(f"[Login] Status: {res.status_code}")
-	needtounzip = False
 
 queue = deque([com])
 visited = set()
@@ -158,11 +156,10 @@ for k in range(depth):
 				time.sleep(0.3)
 				response = urllib.request.urlopen(req)
 				raw = response.read()
-				if needtounzip:
-					try:
-						raw = gzip.decompress(raw)
-					except:
-						pass
+				try:
+					raw = gzip.decompress(raw)
+				except:
+					pass
 				html = raw.decode("utf-8", errors="ignore")
 				bs = BeautifulSoup(html, "html.parser")
 			except HTTPError as e:
@@ -173,7 +170,6 @@ for k in range(depth):
 				continue
 
 			print(f"[Crawling] {x}")
-			visited.add(x)
 
 			if target:
 				results = bs.select(thed)
