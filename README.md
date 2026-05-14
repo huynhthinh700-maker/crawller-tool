@@ -3,7 +3,7 @@
 ## 📌 Overview
 **Crawleller** is a lightweight web crawler written in Python. It is designed to:
 
-- Crawl websites using depth-based traversal (BFS)
+- Crawl websites using BFS algorithms
 - Extract internal URLs (same-domain only)
 - Analyze and print DOM structure
 - Filter elements by tag, class, id, or attribute
